@@ -2,16 +2,19 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-/* Blur
-
-use extension .blur(sigmaX, sigmaY, borderRadius) on Widget.
-
-sigmaX and sigmaY are the blur radius for the x and y axes.
-It also takes a borderRadius parameter.
-
-It will apply the blur to the child widget and clip it to the border radius.
-
-*/
+/// Blur extension for Widget.
+///
+/// This extension allows you to apply a blur effect to any widget.
+///
+/// Use the extension as follows:
+/// ```dart
+/// Widget blurredWidget = myWidget.blur(sigmaX: 5, sigmaY: 5, borderRadius: BorderRadius.circular(10));
+/// ```
+///
+/// The [sigmaX] and [sigmaY] parameters define the blur radius for the x and y axes.
+/// The [borderRadius] parameter allows you to specify the border radius for the widget.
+///
+/// Returns a new widget with the blur effect applied.
 extension Blur on Widget {
   Widget blur({double? sigmaX, double? sigmaY, BorderRadius? borderRadius}) =>
       ClipRRect(
@@ -23,32 +26,34 @@ extension Blur on Widget {
       );
 }
 
-/* Opacity
-
-use extension .withOpacity(opacity) on Widget.
-
-It will apply the opacity to the child widget.
-
-*/
+/// Extension for applying opacity to a Widget.
+///
+/// This extension allows you to set the opacity of any widget.
+///
+/// Use the extension as follows:
+/// ```dart
+/// Widget opaqueWidget = myWidget.withOpacity(0.5);
+/// ```
+///
+/// The [opacity] parameter defines the opacity level (0.0 to 1.0).
+///
+/// Returns a new widget with the specified opacity applied.
 extension WithOpacity on Widget {
   Widget withOpacity(double opacity) => Opacity(opacity: opacity, child: this);
 }
 
-/* Tailwind Column
-
-use extension .tailwind(style) on Column widget.
-
-style is a string of tailwind classes.
-
-example: 
-
-Column().tailwind("min main-start cross-center")
-
-This will create a column with a minimum height, aligned to the start of the main axis, and centered along the cross axis.
-
-DISCLAIMER: The spacing betwwen the keywords should be only a single space.
-  
-*/
+/// Tailwind Column extension for Column widget.
+///
+/// This extension allows you to apply Tailwind CSS-like styling to a Column widget.
+///
+/// Use the extension as follows:
+/// ```dart
+/// Column myColumn = Column().tailwind("min main-start cross-center");
+/// ```
+///
+/// The [style] parameter is a string of Tailwind classes.
+///
+/// Returns a new Column widget styled according to the provided classes.
 extension TailwindColumn on Column {
   Column tailwind(String style) {
     final Set<String> styleSet =
@@ -69,7 +74,6 @@ extension TailwindColumn on Column {
   }
 
   // Parse main axis alignment
-
   MainAxisAlignment _parseMain(Set<String> styleSet) {
     const mainMap = {
       "main-start": MainAxisAlignment.start,
@@ -105,21 +109,18 @@ extension TailwindColumn on Column {
   }
 }
 
-/* Tailwind Row
-
-use extension .tailwind(style) on Column widget.
-
-style is a string of tailwind classes.
-
-example: 
-
-Row().tailwind("min main-start cross-center")
-
-This will create a row with a minimum height, aligned to the start of the main axis, and centered along the cross axis.
-
-DISCLAIMER: The spacing betwwen the keywords should be only a single space.
-  
-*/
+/// Tailwind Row extension for Row widget.
+///
+/// This extension allows you to apply Tailwind CSS-like styling to a Row widget.
+///
+/// Use the extension as follows:
+/// ```dart
+/// Row myRow = Row().tailwind("min main-start cross-center");
+/// ```
+///
+/// The [style] parameter is a string of Tailwind classes.
+///
+/// Returns a new Row widget styled according to the provided classes.
 extension TailwindRow on Row {
   Row tailwind(String style) {
     final Set<String> styleSet =
@@ -140,7 +141,6 @@ extension TailwindRow on Row {
   }
 
   // Parse main axis alignment
-
   MainAxisAlignment _parseMain(Set<String> styleSet) {
     const mainMap = {
       "main-start": MainAxisAlignment.start,
@@ -176,31 +176,20 @@ extension TailwindRow on Row {
   }
 }
 
-/* Tailwind Container
-
-use extension .tailwind(style, context) on Container widget.
-
-style is a string of tailwind classes.
-
-This extension allows you to apply Tailwind CSS-like styling to a Flutter Container widget.
-
-Parameters:
-- style: A string containing Tailwind CSS classes for width, height, background color, and border radius.
-- context: The BuildContext used to access MediaQuery for responsive sizing.
-
-Example:
-
-Container().tailwind("w-full h-1/2 bg-red-500 rounded-md", context)
-
-This will create a Container with:
-- Full width
-- Half height
-- Red background color with shade 500
-- Medium rounded corners
-
-DISCLAIMER: The spacing between the keywords should be only a single space.
-
-*/
+/// Tailwind Container extension for Container widget.
+///
+/// This extension allows you to apply Tailwind CSS-like styling to a Container widget.
+///
+/// Use the extension as follows:
+/// ```dart
+/// Container myContainer = Container().tailwind("w-full h-1/2 bg-red-500 rounded-md", context);
+/// ```
+///
+/// The [style] parameter is a string containing Tailwind CSS classes for width, height,
+/// background color, and border radius. The [context] parameter is used to access
+/// MediaQuery for responsive sizing.
+///
+/// Returns a new Container widget styled according to the provided classes.
 extension TailwindContainer on Container {
   Container tailwind(String style, BuildContext context) {
     final Set<String> styleSet = style.split(" ").toSet();
@@ -347,7 +336,6 @@ extension TailwindContainer on Container {
   }
 
   Color _getBlueShade(String shade) {
-    // Implementation of _getBlueShade method
     switch (shade) {
       case "100":
         return Colors.blue[100]!;
@@ -599,25 +587,36 @@ extension TailwindContainer on Container {
   }
 }
 
-/* SizedBox Wrapper
-
-use extension .sized(w, h) on Widget.
-
-This will wrap the widget in a SizedBox with the specified width and height.
-
-*/
+/// SizedBox Wrapper extension for Widget.
+///
+/// This extension wraps a widget in a SizedBox with the specified width and height.
+///
+/// Use the extension as follows:
+/// ```dart
+/// Widget sizedWidget = myWidget.sized(w: 100, h: 200);
+/// ```
+///
+/// The [w] parameter defines the width of the SizedBox.
+/// The [h] parameter defines the height of the SizedBox.
+///
+/// Returns a new SizedBox widget wrapping the original widget.
 extension SizedBoxWrapper on Widget {
   Widget sized({double? w, double? h}) =>
       SizedBox(width: w, height: h, child: this);
 }
 
-/* Scrolls
-
-use extension .scrolls(physics) on Widget.
-
-physics is an optional parameter for scroll physics, defaulting to AlwaysScrollableScrollPhysics.
-
-*/
+/// Scrolls extension for Widget.
+///
+/// This extension wraps a widget in a SingleChildScrollView with optional scroll physics.
+///
+/// Use the extension as follows:
+/// ```dart
+/// Widget scrollableWidget = myWidget.scrolls(physics: BouncingScrollPhysics());
+/// ```
+///
+/// The [physics] parameter defines the scroll physics, defaulting to AlwaysScrollableScrollPhysics.
+///
+/// Returns a new SingleChildScrollView widget wrapping the original widget.
 extension Scrolls on Widget {
   Widget scrolls({ScrollPhysics? physics}) => SingleChildScrollView(
     physics: physics ?? AlwaysScrollableScrollPhysics(),
